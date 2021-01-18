@@ -25,9 +25,9 @@ const setup = () => {
 const capture = async () => {
     var ctx = canvas.getContext('2d');
 
-    ctx.drawImage(video, 0, 0, 300, 150);
+    ctx.drawImage(video, 380, 50, 240, 240,  0, 0, 300, 150);
     var data = canvas.toDataURL('image/png');
-    var imageData = ctx.getImageData(0, 0, 300, 300);
+    var imageData = ctx.getImageData(0, 0, 400, 400);
     photo.setAttribute('src', data);
 
     var tensor = tf.tensor(preProcessImage(imageData.data));

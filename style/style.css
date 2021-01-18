@@ -36,70 +36,36 @@ body {
 }
 
 .container {
-	width: 450px;
-	height: 350px;
+	width: 400px;
+	height: 400px;
 	margin-left: 50px;
 }
 
 .left-side {
-	width: 300px;
-	height: 350px;
+	width: 400px;
+	height: 400px;
 }
 
 canvas {
-	margin: 0 10px;
-	border-radius: 10px;
-	border: 2px solid black;
-	cursor: crosshair;
-}
-
-.main-buttons {
-	margin: 20px auto;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-}
-
-.clear-button {
-	cursor: pointer;
-	margin-right: 50px;
-	background: tomato;
-	border-radius: 10px;
-	padding: 10px;
-}
-
-.go-button {
-	cursor: pointer;
-	margin-left: 30px;
-	background: tomato;
-	border-radius: 10px;
-	padding: 10px;
-}
-
-.array-element {
-	position: absolute;
-	background: tomato;
-	left: 0;
-	bottom: calc(100% - 485px);
-	border-radius: 10px;
-	transition: all 0.8s ease;
-}
-
-.number-label {
-	position: absolute;
-	bottom: -40px;
-	left: 8px;
-	font-size: 24px;
+	height: 150px;
+	width: 150px;
 }
 
 #video {
-	width: 300px;
-	height: 300px;
+	width: 400px;
+	height: 400px;
 	border: 1px solid black;
 }
 
+#video-rect {
+	transform: translate(240px, -320px);
+	height: 150px;
+	width: 150px;
+	border: 2px solid green;
+}
+
 #photo {
-	width: 300px;
-	height: 300px;
+	width: 400px;
+	height: 400px;
 	border: 1px solid black;
 }

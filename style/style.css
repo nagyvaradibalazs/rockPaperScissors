@@ -46,15 +46,9 @@ body {
 	height: 400px;
 }
 
-canvas {
-	height: 150px;
-	width: 150px;
-}
-
 #video {
 	width: 400px;
 	height: 400px;
-	border: 1px solid black;
 }
 
 #video-rect {
@@ -64,8 +58,48 @@ canvas {
 	border: 2px solid green;
 }
 
-#photo {
-	width: 400px;
-	height: 400px;
-	border: 1px solid black;
+.moves {
+	display: flex;
+	margin-top: 80px;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+}
+
+#photo, #canvas {
+	width: 150px;
+	height: 150px;
+	border-radius: 10px;
+	border: 2px solid black;
+}
+
+#class, #opp-move {
+	text-align: center;
+}
+
+#photo, #opp-move {
+	margin-left: 50px;
+}
+
+.results {
+	margin-top: 10px;
+	justify-content: center;
+	display: flex;
+	font-size: 40px;
+}
+
+#tied {
+	margin-left: 80px;
+	margin-right: 80px;
+}
+
+#capture-button {
+	transform: translate(120px, -180px);
+	text-align: center;
+	width: 80px;
+	cursor: pointer;
+	margin-left: 30px;
+	background: tomato;
+	border-radius: 10px;
+	padding: 10px;
 }

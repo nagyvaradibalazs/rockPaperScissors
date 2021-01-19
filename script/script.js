@@ -1,72 +1,42 @@
 import * as predictionHandler from "./prediction.js";
+import * as videoHandler from "./video.js";
+import * as gameHandler from "./game.js";
 
-var width = 320;
-var height = null;
-var videoIsOn = false;
-var video = null;
-var photo = null;
 var captureButton = null;
 var canvas = null;
 var model = undefined;
-var move = null;
+var playerMove = null;
+var scores = null;
 
-const setup = () => {
-    video = document.getElementById('video');
-    photo = document.getElementById('photo');
-    captureButton = document.getElementById('capture-button');
-    canvas = document.getElementById('canvas');
-    move = document.getElementById('class');
-
-    navigator.mediaDevices.getUserMedia({video: true, audio: false}).then(function(obj) {video.srcObject = obj; video.play()});
-
-    captureButton.addEventListener('click', capture);    
-}
-
-const capture = async () => {
+const play = async () => {
+    //draw on canvas
     var ctx = canvas.getContext('2d');
+    ctx.drawImage(videoHandler.capture(), 380, 50, 240, 240,  0, 0, 300, 150);
 
-    ctx.drawImage(video, 380, 50, 240, 240,  0, 0, 300, 150);
     var data = canvas.toDataURL('image/png');
-    var imageData = ctx.getImageData(0, 0, 400, 400);
-    photo.setAttribute('src', data);
+    var imageData = ctx.getImageData(0, 0, 150, 150);
 
-    var tensor = tf.tensor(preProcessImage(imageData.data));
-
+    //getting prediction
+    var tensor = tf.tensor(videoHandler.preProcessImage(imageData.data));
     var results = await predictionHandler.runRecognizer(tensor, model);
 
-    if(results[0] > results[1] && results[0] > results[2]) {
-        move.innerHTML = 'rock';
-    }
-    else if(results[1] > results[0] && results[1] > results[2]) {
-        move.innerHTML = 'paper';
-    }
-    else {
-        move.innerHTML = 'scissors';
-    }
-}
+    playerMove.innerHTML = (results[0] > results[1] && results[0] > results[2]) ? 'Rock' : (results[1] > results[0] && results[1] > results[2]) ? 'Paper' : 'Scissors';
 
-const preProcessImage = (imageData) => {
-    var result = [];
-    var temp = [];
-    var count = 0;
-    for(let i = 0; i < 360000; i++) {
-        if(i % 4 == 2) {
-            temp.push([imageData[i] / 255.0]);
-            count++;
-        }
-        if(count == 300) {
-            result.push(temp);
-            temp = [];
-            count = 0;
-        }
-    }
-
-    return [result];
+    //update scores
+    let winner = gameHandler.play(results);
+    scores[winner].innerHTML = Number(scores[winner].innerHTML) + 1;
 }
 
 window.onload = async function() {
     //load trained model
     model = await tf.loadLayersModel("model/model.json");
     
-    setup();
+    videoHandler.setup();
+
+    captureButton = document.getElementById('capture-button');
+    canvas = document.getElementById('canvas');
+    playerMove = document.getElementById('class');
+    scores = [document.getElementById('won'), document.getElementById('tied'), document.getElementById('lost'),];
+
+    captureButton.addEventListener('click', play);
 }

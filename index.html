@@ -10,18 +10,30 @@
 <body>
 	<div class="title">
 		<h1>Rock Paper Scissors Game</h1>
-		<p>valamit majdan idefele irok</p>
+		<p>Keep your gesture within the green square. For the best result, provide a light, clean background and avoid rotation.</p>
 	</div>
 	<div class="content">
 		<div class="left-side">			
 			<video id="video"></video>
 			<div id="video-rect"></div>
-			<p id="capture-button">Capture</p>
-			<canvas id="canvas" style="display: hidden;"></canvas>
+			<p id="capture-button">Play</p>
 		</div>
 		<div class="container">
-			<img id="photo">
-			<p id="class"></p>
+			<div class="moves">
+				<div class="player">
+					<canvas id="canvas"></canvas>
+					<p id="class">None</p>
+				</div>
+				<div class="player">
+					<img id="photo" src="imgs/none.png">
+					<p id="opp-move">None</p>
+				</div>
+			</div>
+			<div class="results">
+				<div id="won">0</div>
+				<div id="tied">0</div>
+				<div id="lost">0</div>
+			</div>
 		</div>
 	</div>
 

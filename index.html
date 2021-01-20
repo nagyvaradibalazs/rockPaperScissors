@@ -10,13 +10,16 @@
 <body>
 	<div class="title">
 		<h1>Rock Paper Scissors Game</h1>
-		<p>Keep your gesture within the green square. For the best result, provide a light, clean background and avoid rotation. As a reference, try to mimic the opponent's gestures.</p>
+		<p>Keep your gesture within the green square. For the best result, provide a light, clean background and avoid rotation. Before you start playing, please calibrate the camera and repeat whenever the background in the green rectangle changes!</p>
 	</div>
 	<div class="content">
 		<div class="left-side">			
 			<video id="video"></video>
 			<div id="video-rect"></div>
-			<p id="capture-button">Play</p>
+			<div class="buttons">
+				<p id="calibrate-button">Calibrate</p>
+				<p id="capture-button">Play</p>
+			</div>
 		</div>
 		<div class="container">
 			<div class="moves">

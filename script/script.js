@@ -3,20 +3,38 @@ import * as videoHandler from "./video.js";
 import * as gameHandler from "./game.js";
 
 var captureButton = null;
+var calibrateButton = null;
 var canvas = null;
 var model = undefined;
 var playerMove = null;
 var scores = null;
+var calibrated = false;
 
-const play = async () => {
+const calibrate = () => {
     //draw on canvas
     var ctx = canvas.getContext('2d');
-    ctx.drawImage(videoHandler.capture(), 380, 50, 240, 240,  0, 0, 300, 150);
+    ctx.drawImage(videoHandler.capture(), 380, 50, 240, 240,  0, 0, 150, 150);
+    var imageData = ctx.getImageData(0, 0, 150, 150);
+    videoHandler.calibrate(imageData);
+    ctx.clearRect(0, 0, 150, 150);
+    calibrated = true;
+}
 
-    var data = canvas.toDataURL('image/png');
+const play = async () => {
+    //if not calibrated
+    if(!calibrated) {
+        window.alert('You need to calibrate first!');
+        return;
+    }
+
+    //draw on canvas
+    var ctx = canvas.getContext('2d');
+    ctx.drawImage(videoHandler.capture(), 380, 50, 240, 240,  0, 0, 150, 150);
+
     var imageData = ctx.getImageData(0, 0, 150, 150);
 
     //getting prediction
+    console.log(videoHandler.preProcessImage(imageData.data));
     var tensor = tf.tensor(videoHandler.preProcessImage(imageData.data));
     var results = await predictionHandler.runRecognizer(tensor, model);
 
@@ -34,9 +52,11 @@ window.onload = async function() {
     videoHandler.setup();
 
     captureButton = document.getElementById('capture-button');
+    calibrateButton = document.getElementById('calibrate-button');
     canvas = document.getElementById('canvas');
     playerMove = document.getElementById('class');
     scores = [document.getElementById('won'), document.getElementById('tied'), document.getElementById('lost'),];
 
     captureButton.addEventListener('click', play);
+    calibrateButton.addEventListener('click', calibrate);
 }

@@ -66,19 +66,21 @@ body {
 	align-items: center;
 }
 
-#photo, #canvas {
+#photo {
 	width: 150px;
 	height: 150px;
+	margin-left: -100px;
 	border-radius: 10px;
 	border: 2px solid black;
 }
 
 #class, #opp-move {
+	margin-left: -100px;
 	text-align: center;
 }
 
-#photo, #opp-move {
-	margin-left: 50px;
+#class {
+	margin-left: -150px;
 }
 
 .results {
@@ -93,13 +95,22 @@ body {
 	margin-right: 80px;
 }
 
-#capture-button {
-	transform: translate(120px, -180px);
+.buttons {
+	transform: translateY(-180px);
+	display: flex;
+	justify-content: center;
+}
+
+#capture-button, #calibrate-button {
 	text-align: center;
 	width: 80px;
 	cursor: pointer;
-	margin-left: 30px;
 	background: tomato;
 	border-radius: 10px;
 	padding: 10px;
+}
+
+#calibrate-button {
+	width: 120px;
+	margin-right: 30px;
 }

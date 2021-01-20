@@ -49,13 +49,17 @@ img_test = img_test / 255.0
 model = keras.Sequential([
   keras.layers.AveragePooling2D(6, 6, input_shape=(300, 300, 1)),
   keras.layers.Conv2D(128, 4, activation='relu'),
+  keras.layers.MaxPool2D(2, 2),
+  keras.layers.Dropout(0.25),
   keras.layers.Conv2D(64, 4, activation='relu'),
+  keras.layers.MaxPool2D(2, 2),
+  keras.layers.Dropout(0.25),
   keras.layers.Conv2D(32, 4, activation='relu'),
   keras.layers.MaxPool2D(2, 2),
-  keras.layers.Dropout(0.5),
+  keras.layers.Dropout(0.25),
   keras.layers.Flatten(),
   keras.layers.Dense(64, activation='relu'),
-  keras.layers.Dropout(0.2),
+  keras.layers.Dropout(0.25),
   keras.layers.Dense(3, activation='softmax')               
 ])
 
@@ -63,7 +67,7 @@ model = keras.Sequential([
 model.compile(optimizer='adam', loss=keras.losses.sparse_categorical_crossentropy, metrics=['accuracy'])
 
 #train the model
-model.fit(img_train, label_train, epochs=8)
+model.fit(img_train, label_train, epochs=10, batch_size=64)
 
 #test the model
 loss, acc = model.evaluate(img_test, label_test)
